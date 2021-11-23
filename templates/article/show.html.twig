@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+	<main role="main" class="container">
+
+		<div class="img-fluid">
+			<img width="100%" src="{{article.image}}" alt="{{article.title}}" >
+			<div class="content">
+				<p class="date">Edite le
+					{{ article.createdAt | date ("d/m/Y")}}
+					a
+					{{ article.createdAt | date ("H:i")}}</p>
+				<h1>{{article.title}}</h1>
+				<p class="text-justify">{{article.content}}</p>
+			</div>
+		</div>
+
+	</main>
+{% endblock %}
