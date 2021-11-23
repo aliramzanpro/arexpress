@@ -25,4 +25,24 @@ class ArticleController extends AbstractController
              ['articles' => $articles]
          );
     }
+
+    /**
+     * @Route("/show{id}", name="show")
+     *
+     * @return Response A response instance
+     */
+    public function show($id): Response
+    {
+        $article = $this->getDoctrine()
+             ->getRepository(Article::class)
+             ->find($id);
+        if (!$article) {
+            return $this->redirectToRoute('index'); // code...
+        }
+
+        return $this->render(
+             'article/show.html.twig',
+             ['article' => $article]
+         );
+    }
 }
