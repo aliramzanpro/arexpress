@@ -33,12 +33,6 @@ class Article
      * @ORM\Column(type="string", length=255)
      */
     private $image;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $createdAt;
-
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="articles")
      */
@@ -49,6 +43,11 @@ class Article
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $createdAt;
 
     public function __construct()
     {
@@ -96,18 +95,6 @@ class Article
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Category[]
      */
@@ -140,6 +127,18 @@ class Article
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
