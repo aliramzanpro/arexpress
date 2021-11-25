@@ -3,21 +3,30 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Repository\ArticleRepository;
+use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
 {
+    private $articleRepository;
+
+        public function __construct(ArticleRepository $articleRepository)
+        {
+            $this->articleRepository= $articleRepository;
+
+        }
+
     /**
      * @Route("/", name="index")
      *
      * @return Response A response instance
      */
-    public function index(): Response
+    public function index(ArticleRepository $articleRepository): Response
     {
-        $articles = $this->getDoctrine()
-             ->getRepository(Article::class)
+        $articles = $this->articleRepository
              ->findAll();
 
         return $this->render(
@@ -31,11 +40,9 @@ class ArticleController extends AbstractController
      *
      * @return Response A response instance
      */
-    public function show($id): Response
+    public function show(Article $article): Response
     {
-        $article = $this->getDoctrine()
-             ->getRepository(Article::class)
-             ->find($id);
+
         if (!$article) {
             return $this->redirectToRoute('index'); // code...
         }
