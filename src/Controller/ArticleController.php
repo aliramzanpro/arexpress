@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Repository\ArticleRepository;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ class ArticleController extends AbstractController
         }
 
     /**
-     * @Route("/", name="index")
+     * @Route("/article/", name="article_index")
      *
      * @return Response A response instance
      */
@@ -36,7 +37,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/show{id}", name="show")
+     * @Route("/article/show{id}", name="article_show")
      *
      * @return Response A response instance
      */
@@ -51,5 +52,24 @@ class ArticleController extends AbstractController
              'article/show.html.twig',
              ['article' => $article]
          );
+    }
+    /**
+     * @Route("/article/category/{id}", name="article_category")
+     *
+     */
+    public function Category(Category $category): Response
+    {
+        if ($category){
+            $articles = $category->getArticles()->getValues();
+        }else{
+            $articles=null;
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render(
+            'article/category.html.twig',
+            ['articles' => $articles]
+
+        );
     }
 }
