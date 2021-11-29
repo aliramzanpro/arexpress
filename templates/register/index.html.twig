@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegisterController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h1 style="text-align: center" >Register account</h1>
+
+        {{ form_start(form) }}
+        <div class="row" style="margin-top: 2em">
+            <div class="col-md-12" style="padding: 1em">
+                {{ form_row(form.username, {'label': "Username:",'attr':{'placeholder':"Your Username"}}) }}
+                {{ form_row(form.email, {'label': "Mail:",'attr':{'placeholder':"Your Mail"}}) }}
+                {{ form_row(form.firstname, {'label': "Firstname:",'attr':{'placeholder':"Your Firstname"}}) }}
+                {{ form_row(form.lastname, {'label': "Lastrname:",'attr':{'placeholder':"Your Lastrname"}}) }}
+                {{ form_row(form.password, {'label': "Password:",'attr':{'placeholder':"Your Password"}}) }}
+                {{ form_row(form.passwordConfirm, {'label': "Confirm Password:",'attr':{'placeholder':"Confirm your password"}}) }}
+            </div>
+        </div>
+        <div class="d-grid gap-2"  style="margin-top: 1em">
+            <button type="submit" class="btn btn-primary" type="button">Register</button>
+
+        </div>
+
+
+
+        <br>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

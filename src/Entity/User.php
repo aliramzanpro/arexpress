@@ -6,9 +6,10 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
  */
 class User
 {
@@ -20,29 +21,54 @@ class User
     private $id;
 
     /**
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50)
+     *
      * @ORM\Column(type="string", length=255)
+     *
      */
     private $username;
 
     /**
+     *@Assert\Length(
+     *      min = 2,
+     *      max = 50)
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
 
     /**
+     *@Assert\Length(
+     *      min = 2,
+     *      max = 50
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     *
+     *@ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
+     **@Assert\Length(
+     *      min = 2,
+     *      max = 50
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(
+     *     propertyPath="password", message="Not same"
+     * )
+     */
+    private $passwordConfirm;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -53,6 +79,7 @@ class User
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="author")
      */
     private $articles;
+
 
     public function __construct()
     {
@@ -125,6 +152,17 @@ class User
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+    public function getPasswordConfirm(): ?string
+    {
+        return $this->passwordConfirm;
+    }
+
+    public function setPasswordConfirm(string $passwordConfirm): self
+    {
+        $this->password = $passwordConfirm;
 
         return $this;
     }

@@ -27,7 +27,7 @@ class ArticleCrudController extends AbstractCrudController
             ->setBasePath("/assets/blog/images/articles")
             ->setRequired(false),
             AssociationField::new('author'),
-            AssociationField::new('category'),
+            AssociationField::new ('category'),
         ];
     }
 }
